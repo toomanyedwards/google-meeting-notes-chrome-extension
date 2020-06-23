@@ -10,8 +10,8 @@
     "content_scripts": [ {
         "all_frames": true,
         "js": [ "js/script.js" ],
-        "matches": [ "https://www.google.com/calendar/*", "https://calendar.google.com/calendar/*" ],
-        "run_at": "document_end"
+        "matches": [ "https://www.google.com/calendar/*", "https://calendar.google.com/calendar/*"],
+        "run_at": "document_idle"
      } ],
     "page_action": {
         "default_popup": "popup.html",
