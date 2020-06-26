@@ -1,0 +1,32 @@
+https://bumbu.me/gapi-in-chrome-extension
+
+CHECKING THE USER'S EMAIL ADDRESS IN A CHROME EXTENSION:
+    https://noidea.dog/blog/chrome-identity-api
+
+CHECKING THE USER'S EMAIL ADDRESS IN A CHROME EXTENSION: PART TWO:
+    https://noidea.dog/blog/chrome-identity-api-part-2
+
+Chrome identity:
+    https://developer.chrome.com/extensions/identity
+
+Fix for getprofileUserInfo return empty user:
+    https://stackoverflow.com/questions/46898503/chrome-identity-getprofileuserinfo-returns-empty-id
+
+
+chrome.identity User Authentication in a Chrome Extension
+    https://stackoverflow.com/questions/25044936/chrome-identity-user-authentication-in-a-chrome-extension
+
+Chrome extension scopes:
+    https://developers.google.com/identity/protocols/oauth2/scopes
+
+Chrome extension permissions:
+    https://developer.chrome.com/extensions/declare_permissions
+
+Authenticate against google calendar API:
+    https://stackoverflow.com/questions/40411493/can-chrome-identity-launchwebauthflow-be-used-to-authenticate-against-google-api
+
+https://stackoverflow.com/questions/51336087/how-do-i-get-a-new-access-token-before-its-expiration-after-user-login-with-chro/51385987#51385987
+
+https://stackoverflow.com/questions/62550627/chrome-identity-launchwebauthflow-not-work-but-chrome-identity-getauthtoken-wor
+
+https://stackoverflow.com/questions/50213150/chrome-extension-launchwebauthflow-error

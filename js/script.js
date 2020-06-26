@@ -1,3 +1,8 @@
+const API_KEY = 'AIzaSyBHH78gDxV2O5N_F7ZKxz-E1SNOP82citw';
+//const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
+const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
+
+const ADD_NOTES_BUTTON_CLICKED_MSG = "ADD_NOTES_BUTTON_CLICKED_MSG"
 
 var observer = new MutationObserver(
     (mutations) => {  
@@ -5,6 +10,7 @@ var observer = new MutationObserver(
             () => {
                 tabEventDetailsPanel = document.getElementById("tabEventDetails")
                 if( tabEventDetailsPanel && !document.getElementById("add_meeting_notes_button") ) {
+                    
                     var addMeetingNotesHtml = `
                         <div id="add_meeting_notes_button_container" class="FrSOzf zoom-video-sec">	
                             <div aria-hidden="true" class="tzcF6">		
@@ -18,6 +24,21 @@ var observer = new MutationObserver(
                         </div>
                     `;
                     tabEventDetailsPanel.insertAdjacentHTML('afterbegin', addMeetingNotesHtml);
+
+                    addMeetingNotesButton = document.getElementById("add_meeting_notes_button")
+                    
+                    // Add event handler
+                    addMeetingNotesButton.addEventListener (
+                        "click", () => {
+                            console.log("addMeetingNotesButton clicked")
+                            chrome.runtime.sendMessage(
+                                {message:ADD_NOTES_BUTTON_CLICKED_MSG}, (response) => {
+                                console.log('addMeetingNotesButton clicked response', response);
+                              }
+                            );
+                        }
+                    )
+    
                 }
             }
         )

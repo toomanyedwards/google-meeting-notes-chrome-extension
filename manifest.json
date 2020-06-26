@@ -1,10 +1,9 @@
 {
     "name": "Google Meeting Notes",
     "version": "1.0",
-    "description": "Build an Extension!",
-    "permissions": ["activeTab", "declarativeContent", "storage"],
+    "description": "Google Meeting Notes",
     "background": {
-        "scripts": ["background.js"],
+        "page": "background.html",
         "persistent": false
     },
     "content_scripts": [ {
@@ -22,6 +21,26 @@
             "128": "images/get_started128.png"
           }
     },
+    "content_security_policy": "script-src 'self' https://apis.google.com/; object-src 'self'",
+    "oauth2": {
+      "client_id": "370393194814-avjjeu46inmjr38cku9312crolphgftt.apps.googleusercontent.com",
+      "scopes":[
+        "https://www.googleapis.com/auth/drive"
+      ]
+    },
+    "permissions": [
+      "identity",
+      "identity.email",
+      "activeTab",
+      "declarativeContent",
+      "storage",
+      "contextMenus",
+      "bookmarks",
+      "*://www.googleapis.com/*",
+    "*://accounts.google.com/*"
+
+
+    ],
     "icons": {
         "16": "images/get_started16.png",
         "32": "images/get_started32.png",
@@ -29,5 +48,6 @@
         "128": "images/get_started128.png"
       },
     "options_page": "options.html",
+    "key":"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhPS8lUHHXbJkwS4Z7z2IEWa/KWOeYrS2Gb/BDtIz5p4shs1oYTzu81fM4pPrvWskS6RYTQAxAeNS5uHV2b6scQ4qjtqQp8P1ukhYqHdRiRGeug1IFAyeU1jeaW5lpg7Xa6+4ESbbhgtnVmty+Xv0hEVWUVqTrLLUjqprbfjlDRgQ5zlJzjKvaL1rk7tb+asjsI7tNiC2PAzzCGvCq1InU9knUByzx6cN0/ttT5lJKg4FeBxPubcOE5zCXloIV2cTv4hqyJuPNFFbZhSjuHZFCX8vO5IdyG30+CHDTBYLNrknRRPo1RdpJi4mE0DeHtV/MKxUNOuv0GZfn/wX+hrLEQIDAQAB",
     "manifest_version": 2
   }
