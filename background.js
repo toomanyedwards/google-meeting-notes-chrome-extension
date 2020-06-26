@@ -69,15 +69,18 @@ const setGapiToken = async () => {
 }
 
 
-const copyNotesDocTemplate = async (notesTemplateDocId, meetingTitle, targetFolder) => {
-  console.log(`copyNotesDocTemplate: ${notesTemplateDocId} ${meetingTitle} ${targetFolder}`);
+const copyNotesDocTemplate = async (notesTemplateDocId, meetingTitle, targetFolderId) => {
+  console.log(`copyNotesDocTemplate: ${notesTemplateDocId} ${meetingTitle} ${targetFolderId}`);
   
   try {
     
     const res = await gapi.client.drive.files.copy(
       {
-        fileId:"1WX8GXmSmq1lWJ992jZ4Wwsg8oiZL9-YwxOc_2iQ8eOI",
-        resource: {name:"foo" }
+        fileId: notesTemplateDocId,
+        resource: {
+          name: meetingTitle + " Meeting Notes",
+          parents:[targetFolderId]
+        } 
       }
     );
 
@@ -97,7 +100,7 @@ const handleAddNotesButtonClicked = async (meetingTitle) => {
 
   setGapiToken();
 
-  copyNotesDocTemplate("","","");
+  copyNotesDocTemplate("1WX8GXmSmq1lWJ992jZ4Wwsg8oiZL9-YwxOc_2iQ8eOI",meetingTitle,"1gl7XMIbtTolHBdOfMcfMjZwnQFgoElbK");
 }
 
 
