@@ -24,47 +24,8 @@ onGAPILoad = async () => {
   await setGapiToken();
   
   listFiles();
-/*
-  console.log("gapi initialized 1");
-
-
-  const token = await getChromeUserToken();
-  console.log("gapi initialized 2");
-
-  gapi.auth.setToken(
-    {
-    'access_token': token,
-    }
-  );
-
-  console.log("gapi initialized 3");
-
-  listFiles2();*/
   
 }
-
-
-  function listFiles2() {
-    console.log("Listing files")
-    gapi.client.drive.files.list({
-      'pageSize': 10,
-      'fields': "nextPageToken, files(id, name)"
-    }).then(function(response) {
-      console.log('Files:');
-      var files = response.result.files;
-      if (files && files.length > 0) {
-        for (var i = 0; i < files.length; i++) {
-          var file = files[i];
-          console.log(file.name + ' (' + file.id + ')');
-        }
-        return "listFiles"
-      } else {
-
-        console.log('No files found.');
-        return "damn"
-      }
-    });
-  }
 
 /**
  * Gets the token for the current chrome user
@@ -128,7 +89,7 @@ chrome.extension.onMessage.addListener(
      setGapiToken();
   
     console.log("Message received 2");
-    listFiles2();
+    //listFiles2();
     console.log("Message received 3");
 
     
@@ -136,6 +97,9 @@ chrome.extension.onMessage.addListener(
       case ADD_NOTES_BUTTON_CLICKED_MSG: 
         handleAddNotesButtonClicked();
     }
+
+    sendResponse({meetingNotesDocUrl:"https://docs.google.com/document/d/1maJ77iB7zUAF_7oXbLh5oEWNzqpDXLB72b7jPNVHTOA/edit?usp=sharing"})
+    
     
   }
 );
