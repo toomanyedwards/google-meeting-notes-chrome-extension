@@ -16,8 +16,10 @@ const getAddMeetingNotesButton = () => {
     return document.getElementById("add_meeting_notes_button_container");
 }
 
+
+
 const getMeetingDescriptionEl = () => {
-    return document.getElementById("T2Ybvb0");
+    return document.getElementById("T2Ybvb0") || document.getElementById("T2Ybvb1");
 }
 
 const getMeetingNotesAnchor = () => {
@@ -40,19 +42,20 @@ const getAddMeetingNotesHtml = () => {
 
 const removeAddDescriptionDiv = () => {
     addDescriptionDiv = getAddDescriptionDiv();
-    console.log(`addDescriptionDiv: ${addDescriptionDiv}`);
+    
     if(addDescriptionDiv) {
+        console.log(`addDescriptionDiv: ${addDescriptionDiv}`);
         addDescriptionDiv.remove();
     }
 }
-
+/*<div jsname="yrriRe" jsaction="focus:L35pef; touchend:L35pef; blur:MZpOXc; keyup:qdd8Be; paste:QD1hyc; drop:HZC9qb;" class="T2Ybvb KRoqRc editable" aria-label="Description" aria-multiline="true" id="T2Ybvb1" g_editable="true" role="textbox" contenteditable="true" style="direction: ltr;">Hello<div>Ther</div><div>How</div><div><br></div></div>*/
 /*<div jsname="V67aGc" class="iSSROb snByac" aria-hidden="false">Add description</div>*/
 const getAddDescriptionDiv = () => {
-    const nodeList = document.querySelectorAll("div[jsname='V67aGc']");
+    var nodeList = document.querySelectorAll("div[jsname='V67aGc']");
     if(nodeList && nodeList[0]) {
+        console.log(`foo: ${JSON.stringify(nodeList[0])}`)
         return nodeList[0];
     }
-    
 }
 
 const addNotesDocToMeetingDescription = (meetingNotesDocUrl) => {
@@ -60,7 +63,7 @@ const addNotesDocToMeetingDescription = (meetingNotesDocUrl) => {
     removeAddDescriptionDiv();
 
     getMeetingDescriptionEl().insertAdjacentHTML('afterbegin', 
-    `<div>Meeting Notes: <a id='${MEETING_NOTES_ANCHOR_ID}' href='${meetingNotesDocUrl}'>${meetingNotesDocUrl}</a><div>` 
+    `<div>Meeting Notes: <a id='${MEETING_NOTES_ANCHOR_ID}' href='${meetingNotesDocUrl}&meetingNotes='true'>${meetingNotesDocUrl}</a><div>`  
     );
 }
 const removeAddMeetingNotesButton = () => {
@@ -108,12 +111,18 @@ var observer = new MutationObserver(
                 console.log("mutation");
                 const eventDetailsTabPanel = getEventDetailsTabPanel();
                 if( getEventDetailsTabPanel() ) {
+                    console.log("Found events details tab panel");
                     if( getMeetingNotesAnchor() ) {
+                        console.log("Found meeting notes anchor");
                         if(getAddMeetingNotesButton()) {
+                            console.log("Found add meeting notes button");
+                            console.log("Removing button");
                             removeAddMeetingNotesButton();
                         }
                     } else {
+                        console.log("Did not find meeting notes anchor");
                         if( !getAddMeetingNotesButton() ) {
+                            console.log("Did not find meeting notes button");
                             insertAddMeetingNotesButton(eventDetailsTabPanel);
                         }
                     }
