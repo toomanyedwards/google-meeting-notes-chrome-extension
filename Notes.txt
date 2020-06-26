@@ -30,3 +30,6 @@ https://stackoverflow.com/questions/51336087/how-do-i-get-a-new-access-token-bef
 https://stackoverflow.com/questions/62550627/chrome-identity-launchwebauthflow-not-work-but-chrome-identity-getauthtoken-wor
 
 https://stackoverflow.com/questions/50213150/chrome-extension-launchwebauthflow-error
+
+Deep Dive into the Google Drive API - Google Docs:
+https://docs.google.com/presentation/d/1lG8aur8oK-dePzt8NRlFzjSYOsnEG4frCuUQ7fdirYE/htmlpresent

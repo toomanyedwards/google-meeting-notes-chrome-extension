@@ -69,14 +69,35 @@ const setGapiToken = async () => {
 }
 
 
+const copyNotesDocTemplate = async (notesTemplateDocId, meetingTitle, targetFolder) => {
+  console.log(`copyNotesDocTemplate: ${notesTemplateDocId} ${meetingTitle} ${targetFolder}`);
+  
+  try {
+    
+    const res = await gapi.client.drive.files.copy(
+      {
+        fileId:"1WX8GXmSmq1lWJ992jZ4Wwsg8oiZL9-YwxOc_2iQ8eOI",
+        resource: {name:"foo" }
+      }
+    );
+
+    console.log(`Done!`)
+  }catch(e) {
+    console.log(`Exception: ${e}`)
+  }
+
+  // console.log(`result: ${JSON.stringify(result)}`);
+}
 
 /**
  * Handle the add notes button clicked
  */
-const handleAddNotesButtonClicked = async () => {
-  console.log("handleAddNotesButtonClicked");
+const handleAddNotesButtonClicked = async (meetingTitle) => {
+  console.log(`handleAddNotesButtonClicked: ${meetingTitle}`);
 
   setGapiToken();
+
+  copyNotesDocTemplate("","","");
 }
 
 
@@ -85,8 +106,8 @@ const handleAddNotesButtonClicked = async () => {
  */
 chrome.extension.onMessage.addListener(
   async (request, sender, sendResponse) => {
-    console.log("Message received 1");
-     setGapiToken();
+    console.log(`Message received: ${JSON.stringify(request)}`);
+     // setGapiToken();
   
     console.log("Message received 2");
     //listFiles2();
@@ -95,7 +116,7 @@ chrome.extension.onMessage.addListener(
     
     switch(request.message) {
       case ADD_NOTES_BUTTON_CLICKED_MSG: 
-        handleAddNotesButtonClicked();
+        handleAddNotesButtonClicked(request.meetingTitle);
     }
 
     sendResponse({meetingNotesDocUrl:"https://docs.google.com/document/d/1maJ77iB7zUAF_7oXbLh5oEWNzqpDXLB72b7jPNVHTOA/edit?usp=sharing"})

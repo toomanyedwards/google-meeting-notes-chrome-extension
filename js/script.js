@@ -81,7 +81,11 @@ const insertAddMeetingNotesButton = (eventDetailsTabPanel) => {
         "click", () => {
             console.log("addMeetingNotesButton clicked")
             chrome.runtime.sendMessage(
-                {message:ADD_NOTES_BUTTON_CLICKED_MSG}, (response) => {
+                {
+                    message:ADD_NOTES_BUTTON_CLICKED_MSG,
+                    meetingTitle: getMeetingNotesTitle()
+                }, 
+                (response) => {
                     console.log('addMeetingNotesButton clicked response', response);
                     if(response.meetingNotesDocUrl) {
                         console.log(`getMeetingNotesTitle: ${getMeetingNotesTitle()}`);
@@ -89,7 +93,7 @@ const insertAddMeetingNotesButton = (eventDetailsTabPanel) => {
                     } else {
 
                     }
-              }
+                }
             );
         }
     )
