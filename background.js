@@ -84,7 +84,8 @@ const copyNotesDocTemplate = async (notesTemplateDocId, meetingTitle, targetFold
       }
     );
 
-    console.log(`Done!`)
+    console.log(`Done!: ${JSON.stringify(res)}`)
+    return res;
   }catch(e) {
     console.log(`Exception: ${e}`)
   }
@@ -100,7 +101,7 @@ const handleAddNotesButtonClicked = async (meetingTitle) => {
 
   setGapiToken();
 
-  copyNotesDocTemplate("1WX8GXmSmq1lWJ992jZ4Wwsg8oiZL9-YwxOc_2iQ8eOI",meetingTitle,"1gl7XMIbtTolHBdOfMcfMjZwnQFgoElbK");
+  return await copyNotesDocTemplate("1WX8GXmSmq1lWJ992jZ4Wwsg8oiZL9-YwxOc_2iQ8eOI",meetingTitle,"1gl7XMIbtTolHBdOfMcfMjZwnQFgoElbK");
 }
 
 
@@ -108,7 +109,7 @@ const handleAddNotesButtonClicked = async (meetingTitle) => {
  * Listen for messages from content script
  */
 chrome.extension.onMessage.addListener(
-  async (request, sender, sendResponse) => {
+  (request, sender, sendResponse) => {
     console.log(`Message received: ${JSON.stringify(request)}`);
      // setGapiToken();
   
@@ -116,17 +117,33 @@ chrome.extension.onMessage.addListener(
     //listFiles2();
     console.log("Message received 3");
 
+    //sendResponse({meetingNotesDocUrl: await handleAddNotesButtonClicked(request.meetingTitle)});
+    //return true;
+   
     
+    handleAddNotesButtonClicked(request.meetingTitle).
+      then( (result)=>{
+      sendResponse({meetingNotesDocUrl: getGoogleDocUrlForId(result.result.id)});
+    });
+    
+    return true;
+    /*
     switch(request.message) {
       case ADD_NOTES_BUTTON_CLICKED_MSG: 
-        handleAddNotesButtonClicked(request.meetingTitle);
-    }
+        const result = await handleAddNotesButtonClicked(request.meetingTitle);
 
-    sendResponse({meetingNotesDocUrl:"https://docs.google.com/document/d/1maJ77iB7zUAF_7oXbLh5oEWNzqpDXLB72b7jPNVHTOA/edit?usp=sharing"})
-    
-    
+        console.log(`File id: ${getGoogleDocUrlForId(result.result.id)}`)
+        sendResponse({meetingNotesDocUrl:getGoogleDocUrlForId(result.result.id)})
+    }
+    sendResponse({meetingNotesDocUrl:"foo"});
+    */
+
   }
 );
+
+const getGoogleDocUrlForId = (googleFileId) => {
+  return `https://docs.google.com/document/d/${googleFileId}/edit?usp=sharing`
+}
 
 const listFiles = async () => {
   console.log("Listing files")

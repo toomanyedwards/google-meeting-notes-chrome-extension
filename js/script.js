@@ -13,19 +13,31 @@ const getEventDetailsTabPanel = () => {
 }
 
 const getAddMeetingNotesButton = () => {
+    return document.getElementById("add_meeting_notes_button");
+}
+
+const getAddMeetingNotesButtonContainer = () => {
     return document.getElementById("add_meeting_notes_button_container");
 }
 
 
 
 const getMeetingDescriptionEl = () => {
-    return document.getElementById("T2Ybvb0") || document.getElementById("T2Ybvb1");
+    var nodeList = document.querySelectorAll("div[id*='T2Ybvb']");
+    if(nodeList && nodeList[0]) {
+        console.log(`getMeetingDescriptionEl: ${JSON.stringify(nodeList[0])}`)
+        return nodeList[0];
+    }
 }
 
 const getMeetingNotesAnchor = () => {
-    return document.getElementById(MEETING_NOTES_ANCHOR_ID);
+    var nodeList = document.querySelectorAll("a[href*='meetingNotesExt']");
+    if(nodeList && nodeList[0]) {
+        console.log(`foo: ${JSON.stringify(nodeList[0])}`)
+        return nodeList[0];
+    }
 }
-const getAddMeetingNotesHtml = () => {
+const getAddMeetingNotesButtonHtml = () => {
     return `
         <div id="add_meeting_notes_button_container" class="FrSOzf zoom-video-sec">	
             <div aria-hidden="true" class="tzcF6">		
@@ -63,25 +75,26 @@ const addNotesDocToMeetingDescription = (meetingNotesDocUrl) => {
     removeAddDescriptionDiv();
 
     getMeetingDescriptionEl().insertAdjacentHTML('afterbegin', 
-    `<div>Meeting Notes: <a id='${MEETING_NOTES_ANCHOR_ID}' href='${meetingNotesDocUrl}&meetingNotes='true'>${meetingNotesDocUrl}</a><div>`  
+    `<div>Meeting Notes: <a id='${MEETING_NOTES_ANCHOR_ID}' href='${meetingNotesDocUrl}&meetingNotesExt='true'>${meetingNotesDocUrl}</a><div>`  
     );
 }
 const removeAddMeetingNotesButton = () => {
-    addMeetingNoteButton = getAddMeetingNotesButton();
-    if(addMeetingNoteButton) {
-        addMeetingNoteButton.remove();
+    addMeetingNoteButtonContainer = getAddMeetingNotesButtonContainer();
+    if(addMeetingNoteButtonContainer) {
+        addMeetingNoteButtonContainer.remove();
     }
 }
 
 const insertAddMeetingNotesButton = (eventDetailsTabPanel) => {
     console.log(`insertAddMeetingNotesButton`);
-    eventDetailsTabPanel.insertAdjacentHTML('afterbegin', getAddMeetingNotesHtml() );
+    eventDetailsTabPanel.insertAdjacentHTML('afterbegin', getAddMeetingNotesButtonHtml() );
 
-    addMeetingNotesButton = document.getElementById("add_meeting_notes_button")
+    addMeetingNotesButton = getAddMeetingNotesButton()
     
     // Add event handler
-    getAddMeetingNotesButton().addEventListener (
+    addMeetingNotesButton.addEventListener (
         "click", () => {
+            addMeetingNotesButton.disabled = true;
             console.log("addMeetingNotesButton clicked")
             chrome.runtime.sendMessage(
                 {
